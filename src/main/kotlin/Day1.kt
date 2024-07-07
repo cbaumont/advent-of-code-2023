@@ -30,18 +30,7 @@ fun findFirstAndLastDigits(input: String): Int {
     return "$firstDigit$lastDigit".toInt()
 }
 
-
-fun fetchListOfStringsFromFile(fileName: String): List<String> =
-    getResourceAsText(fileName)
-        .lines()
-        .filterNot { it.isEmpty() }
-
 fun sumAllFirstAndLastDigitsFromList(list: List<String>) = list.sumOf { findFirstAndLastDigits(it) }
-
-private fun getResourceAsText(fileName: String): String =
-    object {}.javaClass.getResource("/$fileName")
-        ?.readText()
-        ?: error("File not found: $fileName")
 
 private fun String.findSpelledDigitsInString(): Pair<Pair<String, List<Int>>?, Pair<String, List<Int>>?> {
     val listPairs = mapSpelledDigits.keys.map { spelledDigit ->

@@ -2,8 +2,12 @@ package org.example
 
 fun main() {
     val calibrationValues = fetchListOfStringsFromFile("day1_input.txt")
+    val calibrationValuesSum = sumAllFirstAndLastDigitsFromList(calibrationValues)
 
-    val sum = sumAllFirstAndLastDigitsFromList(calibrationValues)
+    println("Sum of all of the calibration values is $calibrationValuesSum")
 
-    println("Sum of all of the calibration values is $sum")
+    val games = fetchListOfStringsFromFile("day2_input.txt")
+    val possibleGamesSum = findPossibleGames(games).sum()
+
+    println("Sum of all of the possible games is $possibleGamesSum")
 }
