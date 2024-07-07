@@ -31,7 +31,7 @@ class Day2Test {
     }
 
     @Test
-    fun `returns map of number to color`() {
+    fun `returns list of impossible games`() {
         val result = "Game 30: 15 red, 3 blue; 2 red; 22 green, 16 blue, 7 red; 5 red"
             .listOfGrabs()
             .listOfCubes()
@@ -44,12 +44,27 @@ class Day2Test {
     @Test
     fun `returns sum of all possible games`() {
         val games = fetchListOfStringsFromFile("day2_input.txt")
-        val possibleGames = findPossibleGames(games)
+        val sum = games.sumOfPossibleGames()
 
-        assertEquals(2512, possibleGames.sum())
+        assertEquals(2512, sum)
+    }
+
+    @Test
+    fun `returns fewest number of cubes for each game`() {
+        val result = "Game 30: 3 blue, 4 red; 1 red, 2 green, 6 blue; 2 green"
+            .listOfGrabs()
+            .listOfCubes()
+            .powerOfGame()
+
+        assertEquals(48, result)
+    }
+
+    @Test
+    fun `returns sum of power of all games`() {
+        val games = fetchListOfStringsFromFile("day2_input.txt")
+        val sum = games.sumPowerOfAllGames()
+
+        assertEquals(67335, sum)
     }
 
 }
-
-
-

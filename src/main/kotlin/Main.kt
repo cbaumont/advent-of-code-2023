@@ -7,7 +7,9 @@ fun main() {
     println("Sum of all of the calibration values is $calibrationValuesSum")
 
     val games = fetchListOfStringsFromFile("day2_input.txt")
-    val possibleGamesSum = findPossibleGames(games).sum()
+    val possibleGamesSum = games.sumOfPossibleGames()
+    val powerOfGamesSum = games.sumPowerOfAllGames()
 
     println("Sum of all of the possible games is $possibleGamesSum")
+    println("Sum of all of the power from games is $powerOfGamesSum")
 }
