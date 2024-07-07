@@ -1,39 +1,23 @@
 package org.example
 
-fun findPossibleGames(games: List<String>): List<Int> {
-    val bagContents = mapOf("red" to 12, "green" to 13, "blue" to 14)
-    val impossibleGames = mutableListOf<Int>()
-    games.forEach { game ->
-        val gameNumber = game.gameNumber()
-        game.listOfGrabs()
-            .flatMap { it.listOfCubes() }
-            .toCubesColorMap()
-            .forEach { (color, cubes) ->
-                if (cubes > bagContents[color]!! && gameNumber !in impossibleGames) {
-                    impossibleGames += gameNumber
-                }
-            }
-    }
-    val possibleGames = games
-        .map { it.gameNumber() }
-        .filterNot { it in impossibleGames }
-    return possibleGames
-}
+private val bagContents = mapOf("red" to 12, "green" to 13, "blue" to 14)
 
-fun List<String>.toCubesColorMap(): Map<String, Int> {
-    val result = mutableMapOf("red" to 0, "green" to 0, "blue" to 0)
-    this.forEach { cubesByColor ->
+fun findPossibleGames(games: List<String>) =
+    games.partition { game ->
+        game.listOfGrabs()
+            .listOfCubes()
+            .filterImpossible().isNotEmpty()
+    }.second.map { it.gameNumber() }
+
+fun List<String>.filterImpossible(): List<String> =
+    this.partition { cubesByColor ->
         val cubes = cubesByColor.filter { it.isDigit() }.toInt()
         val color = cubesByColor.filter { it.isLetter() }
-        if (cubes > result[color]!!) {
-            result[color] = cubes
-        }
-    }
-    return result
-}
+        cubes > bagContents[color]!!
+    }.first
 
-fun String.listOfCubes() =
-    this.split(',')
+fun List<String>.listOfCubes() =
+    this.flatMap { it.split(',') }
         .map { it.trim() }
 
 fun String.listOfGrabs() =
