@@ -12,4 +12,12 @@ fun main() {
 
     println("Sum of all of the possible games is $possibleGamesSum")
     println("Sum of all of the power from games is $powerOfGamesSum")
+
+    val engineSchematic = fetchListOfStringsFromFile("day3_input.txt")
+    val sumEnginePartNumbers = sumOfNumbersAdjacentToSymbols(
+        symbolsPositions = engineSchematic.map(String::symbolsPositions),
+        numbersPositions = engineSchematic.map(String::numbersPositionsRange)
+    )
+
+    println("Sum of all engine part numbers is $sumEnginePartNumbers")
 }
